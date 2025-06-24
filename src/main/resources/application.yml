@@ -1,0 +1,29 @@
+#spring.application.name=spring-timeout-demo
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:SID
+    username: uname
+    password: pwd
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      validation-timeout: 5000
+      idle-timeout: 600000
+
+  transaction:
+    default-timeout: 300
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      javax.persistence.query.timeout: 300000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
