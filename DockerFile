@@ -1,0 +1,60 @@
+// Dockerfile
+
+FROM openjdk:21-jdk-slim
+VOLUME /tmp
+ARG JAR_FILE=target/spring-timeout-demo-1.0.0.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+
+// README.md
+
+# Spring Timeout Demo
+
+This is a Spring Boot project demonstrating how to manage transaction timeouts and per-task timeouts using ThreadPoolTaskExecutor.
+
+## Prerequisites
+
+- Java 21
+- Maven 3.6+
+- Docker (optional for containerization)
+- Oracle Database (configured in `application.yml`)
+
+## Build the Project
+
+```bash
+mvn clean install
+```
+
+## Run the Project Locally
+
+```bash
+mvn spring-boot:run
+```
+
+Or run the JAR file:
+
+```bash
+java -jar target/spring-timeout-demo-1.0.0.jar
+```
+
+## Run with Docker
+
+```bash
+# Build the Docker image
+docker build -t spring-timeout-demo .
+
+# Run the Docker container
+docker run -p 8080:8080 spring-timeout-demo
+```
+
+## API Endpoint
+
+- **POST** `/customers/process` - Starts the customer processing with a task and transaction timeout.
+
+## Configuration
+
+Database settings and timeout parameters can be adjusted in `src/main/resources/application.yml`.
+
+---
+
+If you would like, I can also prepare Docker Compose files or CI/CD pipeline examples for deployment.
